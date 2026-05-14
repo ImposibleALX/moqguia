@@ -1,0 +1,8 @@
+{
+  "name": "Moquegua Explorer Offline",
+  "description": "Una guía turística interactiva de Moquegua con modo offline, rutas y mapas interactivos.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}

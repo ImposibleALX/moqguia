@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import "tailwindcss";
+
+/* ─── Variables de Safe Area (Android y iOS) ─────────────────────────────────
+   Estas variables se mapean a las áreas seguras del dispositivo.
+   En Android 10+ con gestos de navegación, --sab puede ser hasta 36px.
+   En Android con notch/punch-hole, --sat puede ser hasta 48px.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  --sat: env(safe-area-inset-top, 0px);       /* Notch / barra de estado */
+  --sar: env(safe-area-inset-right, 0px);     /* Borde derecho (landscape) */
+  --sab: env(safe-area-inset-bottom, 0px);    /* Barra de gestos inferior */
+  --sal: env(safe-area-inset-left, 0px);      /* Borde izquierdo (landscape) */
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  
+  /* Sistema de color premium */
+  --color-sand-50: #FCFBF9;
+  --color-sand-100: #F6F4EE;
+  --color-sand-200: #EBE6D9;
+  --color-sand-300: #DDD5C2;
+  --color-sand-800: #4A463E;
+  --color-sand-900: #2D2926;
+  
+  --color-terracotta-400: #D87253;
+  --color-terracotta-500: #C45A3D;
+  --color-terracotta-600: #A8452B;
+  
+  --color-gold-400: #D4AF37;
+  --color-gold-500: #C5A028;
+}
+
+@layer utilities {
+  .glass {
+    background-color: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  }
+  .glass-dark {
+    background-color: rgba(45, 41, 38, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(45, 41, 38, 0.4);
+    color: #FCFBF9;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Efecto de carga tipo shimmer para skeletons */
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--color-sand-200) 25%,
+      var(--color-sand-300) 50%,
+      var(--color-sand-200) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+  /* Insignia de altitud con degradado terracotta */
+  .elevation-badge {
+    background: linear-gradient(135deg, var(--color-terracotta-500), var(--color-terracotta-600));
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  /* Compensación de safe area para la navegación inferior */
+  .bottom-nav-safe {
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), 16px);
+  }
+  /* Padding superior que respeta el notch o barra de estado */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─── MapLibre GL: el canvas debe llenar su contenedor ──────────────────────── */
+.maplibregl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+}
+.maplibregl-canvas-container,
+.maplibregl-map {
+  width: 100% !important;
+  height: 100% !important;
+}
+/* Atribución compacta: no interfiere con la navegación en móviles */
+.maplibregl-ctrl-bottom-right {
+  bottom: 80px !important;
+  right: 6px !important;
+}
+.maplibregl-ctrl-attrib {
+  font-size: 9px !important;
+  opacity: 0.7;
+}
+
+/* ─── Estilos globales del body ─────────────────────────────────────────────── */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-sand-100);
+  color: var(--color-sand-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Previene el rebote de scroll en Android (overscroll effect) */
+  overscroll-behavior: none;
+  /* Aceleración de hardware para scroll en Android */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ─── Fixes táctiles globales para Android ──────────────────────────────────── */
+* {
+  /* Elimina el flash azul/gris al tocar elementos en Android */
+  -webkit-tap-highlight-color: transparent;
+  /* Previene el menú contextual al mantener presionado en imágenes */
+  -webkit-touch-callout: none;
+}
+
+/* ─── Prevenir selección de texto accidental durante gestos táctiles ────────── */
+.select-none {
+  -webkit-user-select: none;
+  user-select: none;
+}

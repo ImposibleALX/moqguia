@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover: OBLIGATORIO para Safe Area en Android 10+ con gestos del sistema -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- Evita zoom automático en campos de texto (bug clásico Android) -->
+    <meta name="format-detection" content="telephone=no" />
+    <!-- Color de la barra de estado en navegadores y PWA -->
+    <meta name="theme-color" content="#F6F4EE" />
+    <meta name="description" content="Guía turística digital de la región Moquegua con mapas offline, rutas y puntos de interés." />
+    <title>MoqGuía Offline</title>
+    <!-- Preconnect a Google Fonts para reducir FOUT en dispositivos Android -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
