@@ -26,21 +26,29 @@ jobs:
       - name: Setup JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
           distribution: 'temurin'
+          java-version: '21'
           cache: 'gradle'
 
       - name: Build Web Assets
         run: npm run build
 
-      - name: Sync Capacitor Android
+      - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Fix Gradle permissions
+      - name: Fix permissions
         run: chmod +x android/gradlew
 
+      # === SOLUCIÓN PRINCIPAL ===
+      - name: Upgrade AGP and dependencies
+        run: |
+          cd android
+          # Fuerza versiones compatibles
+          sed -i 's/com.android.application:[0-9.]\+/com.android.application:8.7.0/' build.gradle
+          sed -i 's/com.android.library:[0-9.]\+/com.android.library:8.7.0/' build.gradle || true
+
       - name: Build Debug APK
-        run: cd android && ./gradlew assembleDebug --stacktrace
+        run: cd android && ./gradlew assembleDebug --stacktrace --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

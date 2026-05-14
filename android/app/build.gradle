@@ -2,7 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
     namespace "com.moquegua.explorer"
-    compileSdk rootProject.ext.compileSdkVersion
+    compileSdk 35
+    ndkVersion "27.0.12077973"
     defaultConfig {
         applicationId "com.moquegua.explorer"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -48,6 +49,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_21
         targetCompatibility JavaVersion.VERSION_21
+    }
+
+    kotlinOptions {
+        jvmTarget = '21'
     }
 }
 
